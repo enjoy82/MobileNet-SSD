@@ -23,26 +23,26 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 mvnc.SetGlobalOption(mvnc.GlobalOption.LOG_LEVEL, 2)
-
+"""
 devices = mvnc.EnumerateDevices()
 if len(devices) == 0:
     print("No devices found")
     quit()
 print(len(devices))
-
-devHandle   = []
-graphHandle = []
+"""
+#devHandle   = []
+#graphHandle = []
 
 with open(join(graph_folder, "graph"), mode="rb") as f:
     graph = f.read()
-
+"""
 for devnum in range(len(devices)):
     devHandle.append(mvnc.Device(devices[devnum]))
     devHandle[devnum].OpenDevice()
     graphHandle.append(devHandle[devnum].AllocateGraph(graph))
     graphHandle[devnum].SetGraphOption(mvnc.GraphOption.ITERATIONS, 1)
     iterations = graphHandle[devnum].GetGraphOption(mvnc.GraphOption.ITERATIONS)
-
+"""
 print("\nLoaded Graphs!!!")
 
 cam = cv2.VideoCapture(0)
@@ -87,9 +87,11 @@ def keyboard(key, x, y):
         while len(frameBuffer) > 0:
             frameBuffer.pop()
         lock.release()
+        """
         for devnum in range(len(devices)):
             graphHandle[devnum].DeallocateGraph()
             devHandle[devnum].CloseDevice()
+            """
         print("\n\nFinished\n\n")
         sys.exit()
 
